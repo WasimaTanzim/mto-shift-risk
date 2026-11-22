@@ -19,7 +19,8 @@ CATALOG, SCHEMA = os.getenv("MTO_CATALOG", "workspace"), os.getenv("MTO_SCHEMA",
 T = lambda name: f"{CATALOG}.{SCHEMA}.{name}"
 HERE = os.path.dirname(os.path.abspath(__file__))
 # Databricks mode when a SQL warehouse is attached; otherwise read the data snapshot shipped in ./data
-LOCAL = os.getenv("MTO_LOCAL_DIR") or (None if os.getenv("DATABRICKS_WAREHOUSE_ID") else os.path.join(HERE, "data"))
+_DATA = os.path.join(HERE, "data") if os.path.exists(os.path.join(HERE, "data", "snap_predictions.csv")) else HERE
+LOCAL = os.getenv("MTO_LOCAL_DIR") or (None if os.getenv("DATABRICKS_WAREHOUSE_ID") else _DATA)
 TZ = "America/Toronto"
 MIN_PER_KM = 0.8          # from the response-time model: 7.36 + 0.798 x road km
 SMALL_GAIN_MIN = 2.0      # a move that saves less than this in the zone is "optional"
