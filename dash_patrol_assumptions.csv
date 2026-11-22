@@ -1,0 +1,8 @@
+item,value
+Response time model,minutes = 7.36 + 0.798 x road km (r = 0.925)
+Road distance,"1.300 x straight-line distance (depot locations estimated, mean error 0.02 km)"
+Fleet,145 units at 49 depots
+Constraints,1 recommendation per zone per shift; staging within 45 km of depot; at most 21 units (15%) moved
+Scenario shifts (UTC),A · Clear: 2023-03-20 12:00; B · Winter Storm: 2023-01-26 12:00; C · Freezing Rain + Construction: 2023-11-25 12:00
+Work zone (scenario C),"SEG-401-0008, SEG-401-0009; forecast risk x 2.0 (planning assumption, no construction data)"
+Depot offline,DEP-D-2; its units work from DEP-D-12

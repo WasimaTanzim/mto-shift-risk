@@ -1,0 +1,31 @@
+scenario,case,from_depot,to_location,to_zone,units,distance_km,from_zone,recommendation
+A · Clear,All depots open,DEP-A-2,SEG-407-0022,Zone-A-SW,1,35.411454512648156,Zone-A-SW,Move 1 unit from DEP-A-2 to segment SEG-407-0022 (35 km) before the shift starts
+A · Clear,All depots open,DEP-B-2,SEG-35-0002,Zone-B-SE,1,23.500343220683085,Zone-B-SE,Move 1 unit from DEP-B-2 to segment SEG-35-0002 (24 km) before the shift starts
+A · Clear,All depots open,DEP-C-1,SEG-117-0017,Zone-C-NE,1,37.9043477777889,Zone-C-NE,Move 1 unit from DEP-C-1 to segment SEG-117-0017 (38 km) before the shift starts
+A · Clear,All depots open,DEP-D-6,SEG-401-0002,Zone-D-NW,1,42.51564970914779,Zone-D-NW,Move 1 unit from DEP-D-6 to segment SEG-401-0002 (43 km) before the shift starts
+A · Clear,All depots open,DEP-E-4,SEG-403-0016,Zone-D-NW,1,43.61540503634849,Zone-E-Central,Move 1 unit from DEP-E-4 to segment SEG-403-0016 (44 km) before the shift starts
+A · Clear,DEP-D-2 offline,DEP-A-2,SEG-407-0022,Zone-A-SW,1,35.411454512648156,Zone-A-SW,Move 1 unit from DEP-A-2 to segment SEG-407-0022 (35 km) before the shift starts
+A · Clear,DEP-D-2 offline,DEP-B-2,SEG-35-0002,Zone-B-SE,1,23.500343220683085,Zone-B-SE,Move 1 unit from DEP-B-2 to segment SEG-35-0002 (24 km) before the shift starts
+A · Clear,DEP-D-2 offline,DEP-C-1,SEG-117-0017,Zone-C-NE,1,37.9043477777889,Zone-C-NE,Move 1 unit from DEP-C-1 to segment SEG-117-0017 (38 km) before the shift starts
+A · Clear,DEP-D-2 offline,DEP-D-6,SEG-401-0002,Zone-D-NW,1,42.51564970914779,Zone-D-NW,Move 1 unit from DEP-D-6 to segment SEG-401-0002 (43 km) before the shift starts
+A · Clear,DEP-D-2 offline,DEP-E-2,SEG-403-0013,Zone-D-NW,1,30.50745937885336,Zone-E-Central,Move 1 unit from DEP-E-2 to segment SEG-403-0013 (31 km) before the shift starts
+B · Winter Storm,All depots open,DEP-A-2,SEG-407-0021,Zone-A-SW,1,37.423571497646265,Zone-A-SW,Move 1 unit from DEP-A-2 to segment SEG-407-0021 (37 km) before the shift starts
+B · Winter Storm,All depots open,DEP-B-2,SEG-115-0006,Zone-B-SE,1,26.335444519906563,Zone-B-SE,Move 1 unit from DEP-B-2 to segment SEG-115-0006 (26 km) before the shift starts
+B · Winter Storm,All depots open,DEP-C-6,SEG-144-0002,Zone-C-NE,1,34.27466110917027,Zone-C-NE,Move 1 unit from DEP-C-6 to segment SEG-144-0002 (34 km) before the shift starts
+B · Winter Storm,All depots open,DEP-D-4,SEG-69-0023,Zone-D-NW,1,30.632721255432145,Zone-D-NW,Move 1 unit from DEP-D-4 to segment SEG-69-0023 (31 km) before the shift starts
+B · Winter Storm,All depots open,DEP-E-2,SEG-403-0016,Zone-D-NW,1,18.648970782271263,Zone-E-Central,Move 1 unit from DEP-E-2 to segment SEG-403-0016 (19 km) before the shift starts
+B · Winter Storm,DEP-D-2 offline,DEP-A-2,SEG-407-0021,Zone-A-SW,1,37.423571497646265,Zone-A-SW,Move 1 unit from DEP-A-2 to segment SEG-407-0021 (37 km) before the shift starts
+B · Winter Storm,DEP-D-2 offline,DEP-B-2,SEG-115-0006,Zone-B-SE,1,26.335444519906563,Zone-B-SE,Move 1 unit from DEP-B-2 to segment SEG-115-0006 (26 km) before the shift starts
+B · Winter Storm,DEP-D-2 offline,DEP-C-6,SEG-144-0002,Zone-C-NE,1,34.27466110917027,Zone-C-NE,Move 1 unit from DEP-C-6 to segment SEG-144-0002 (34 km) before the shift starts
+B · Winter Storm,DEP-D-2 offline,DEP-D-4,SEG-69-0023,Zone-D-NW,1,30.632721255432145,Zone-D-NW,Move 1 unit from DEP-D-4 to segment SEG-69-0023 (31 km) before the shift starts
+B · Winter Storm,DEP-D-2 offline,DEP-E-2,SEG-403-0013,Zone-D-NW,1,30.50745937885336,Zone-E-Central,Move 1 unit from DEP-E-2 to segment SEG-403-0013 (31 km) before the shift starts
+C · Freezing Rain + Construction,All depots open,DEP-A-2,SEG-407-0022,Zone-A-SW,1,35.411454512648156,Zone-A-SW,Move 1 unit from DEP-A-2 to segment SEG-407-0022 (35 km) before the shift starts
+C · Freezing Rain + Construction,All depots open,DEP-B-2,SEG-35-0002,Zone-B-SE,1,23.500343220683085,Zone-B-SE,Move 1 unit from DEP-B-2 to segment SEG-35-0002 (24 km) before the shift starts
+C · Freezing Rain + Construction,All depots open,DEP-C-1,SEG-117-0014,Zone-C-NE,1,26.35289628919305,Zone-C-NE,Move 1 unit from DEP-C-1 to segment SEG-117-0014 (26 km) before the shift starts
+C · Freezing Rain + Construction,All depots open,DEP-D-6,SEG-401-0002,Zone-D-NW,1,42.51564970914779,Zone-D-NW,Move 1 unit from DEP-D-6 to segment SEG-401-0002 (43 km) before the shift starts
+C · Freezing Rain + Construction,All depots open,DEP-E-2,SEG-403-0016,Zone-D-NW,1,18.648970782271263,Zone-E-Central,Move 1 unit from DEP-E-2 to segment SEG-403-0016 (19 km) before the shift starts
+C · Freezing Rain + Construction,DEP-D-2 offline,DEP-A-2,SEG-407-0022,Zone-A-SW,1,35.411454512648156,Zone-A-SW,Move 1 unit from DEP-A-2 to segment SEG-407-0022 (35 km) before the shift starts
+C · Freezing Rain + Construction,DEP-D-2 offline,DEP-B-2,SEG-35-0002,Zone-B-SE,1,23.500343220683085,Zone-B-SE,Move 1 unit from DEP-B-2 to segment SEG-35-0002 (24 km) before the shift starts
+C · Freezing Rain + Construction,DEP-D-2 offline,DEP-C-1,SEG-117-0014,Zone-C-NE,1,26.35289628919305,Zone-C-NE,Move 1 unit from DEP-C-1 to segment SEG-117-0014 (26 km) before the shift starts
+C · Freezing Rain + Construction,DEP-D-2 offline,DEP-D-9,SEG-401-0006,Zone-D-NW,1,43.231076786762955,Zone-D-NW,Move 1 unit from DEP-D-9 to segment SEG-401-0006 (43 km) before the shift starts
+C · Freezing Rain + Construction,DEP-D-2 offline,DEP-E-2,SEG-403-0015,Zone-D-NW,1,23.975220476711982,Zone-E-Central,Move 1 unit from DEP-E-2 to segment SEG-403-0015 (24 km) before the shift starts
