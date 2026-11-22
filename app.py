@@ -21,8 +21,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # Databricks mode when a SQL warehouse is attached; otherwise read the data snapshot shipped in ./data
 _DATA = os.path.join(HERE, "data") if os.path.exists(os.path.join(HERE, "data", "snap_predictions.csv")) else HERE
 LOCAL = os.getenv("MTO_LOCAL_DIR") or (None if os.getenv("DATABRICKS_WAREHOUSE_ID") else _DATA)
-TZ = "America/Toronto"
+TZ = "UTC"   # advisor rule: all v2 timestamps are UTC; do not convert
 MIN_PER_KM = 0.8          # from the response-time model: 7.36 + 0.798 x road km
+FALLBACK = "Risk estimate unavailable — use existing operational procedures."
 SMALL_GAIN_MIN = 2.0      # a move that saves less than this in the zone is "optional"
 NEAR_MIN = 20.0           # High-risk stretches reachable within this already count as covered (median Critical response)
 
@@ -73,7 +74,7 @@ def local_time(ts):
 
 def shift_label(ts):
     s = local_time(ts); e = s + pd.Timedelta(hours=6)
-    return f"{s:%a %d %b %Y}, {s:%H:%M}–{e:%H:%M}"
+    return f"{s:%a %d %b %Y}, {s:%H:%M}–{e:%H:%M} UTC"
 
 COLS = ("segment_id, maintenance_zone, highway_number, risk_xgboost, risk_level, risk_level_order, "
         "confidence_band, confidence_text, reason_1, reason_2, reason_1_group, recommended_action")
@@ -153,7 +154,8 @@ zone = st.sidebar.selectbox("Your zone", list(ZONE_NAMES), index=None, format_fu
 supervisor = st.sidebar.text_input("Your supervisor ID", placeholder="e.g. SUP-D-014")
 page = st.sidebar.radio("Go to", ["My shift", "Decision log", "What-if planning"],
                         captions=["What to do before this shift", "Moves confirmed or declined", "Scenarios for planners"])
-st.sidebar.caption("Prototype. Runs on sample conditions until connected to the Ministry's live feeds. Times are Eastern.")
+st.sidebar.caption("Prototype. Runs on sample conditions until connected to the Ministry's live feeds. "
+                   "Times are UTC, as recorded in the Ministry's data; local display to be confirmed with the Ministry.")
 
 # ---------------------------------------------------------------- page 1: my shift
 if page == "My shift":
@@ -162,7 +164,12 @@ if page == "My shift":
         st.info("Choose your zone on the left to see your shift.")
         st.stop()
 
-    zp, mv = patrol("dash_patrol_zone_plan"), patrol("dash_patrol_moves")
+    try:
+        zp, mv = patrol("dash_patrol_zone_plan"), patrol("dash_patrol_moves")
+    except Exception:
+        st.header(f"Your next shift · {zname(zone)}")
+        st.warning(FALLBACK)
+        st.stop()
     zp = zp.assign(shift=zp.shift_start_utc.map(utc))
     planned = (zp[zp.case == "All depots open"].drop_duplicates("scenario")
                  .set_index("shift").scenario.to_dict())             # shift -> scenario name
@@ -175,11 +182,17 @@ if page == "My shift":
     cond = c2.selectbox("Demo conditions", order, index=0)
     w = by_label[cond]
     s0 = local_time(w)
-    c1.markdown(f"#### Shift {s0:%H:%M}–{(s0 + pd.Timedelta(hours=6)):%H:%M}")
+    c1.markdown(f"#### Shift {s0:%H:%M}–{(s0 + pd.Timedelta(hours=6)):%H:%M} UTC")
     c1.caption(f"Demo conditions: a real {cond.lower()} morning from the Ministry's data. In use, this page reads "
                "the live weather forecast and vehicle feeds and opens on your next shift automatically.")
 
-    rows = shift_rows(w, zone).sort_values("risk_xgboost", ascending=False)
+    try:
+        rows = shift_rows(w, zone).sort_values("risk_xgboost", ascending=False)
+    except Exception:
+        rows = pd.DataFrame()
+    if rows.empty:
+        st.warning(FALLBACK)
+        st.stop()
     high = rows[rows.risk_level == "High"]
     elev = rows[rows.risk_level == "Elevated"]
 
@@ -378,7 +391,11 @@ elif page == "Decision log":
 else:
     st.header("What-if planning")
     st.caption("For planners and the Director: the three planning scenarios and the test of a Zone D depot closing (US-004).")
-    zp, mv, asm = patrol("dash_patrol_zone_plan"), patrol("dash_patrol_moves"), patrol("dash_patrol_assumptions")
+    try:
+        zp, mv, asm = patrol("dash_patrol_zone_plan"), patrol("dash_patrol_moves"), patrol("dash_patrol_assumptions")
+    except Exception:
+        st.warning(FALLBACK)
+        st.stop()
     c1, c2 = st.columns([2, 1])
     scen = c1.selectbox("Scenario", sorted(zp.scenario.unique()))
     cases = sorted(zp.case.unique(), key=lambda c: c != "All depots open")
@@ -386,7 +403,7 @@ else:
                     format_func=lambda c: "All depots open" if c == "All depots open" else "Depot D-2 closed")
     z = zp[(zp.scenario == scen) & (zp.case == case)]
     m = mv[(mv.scenario == scen) & (mv.case == case)]
-    st.caption(f"Sample conditions: the real morning of {shift_label(utc(z.shift_start_utc.iloc[0]))} (Eastern).")
+    st.caption(f"Sample conditions: the real morning of {shift_label(utc(z.shift_start_utc.iloc[0]))}.")
 
     before = (z.expected_critical_windows * z.response_min_before).sum() / z.expected_critical_windows.sum()
     after = (z.expected_critical_windows * z.response_min_after).sum() / z.expected_critical_windows.sum()
